@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 启动页：纯深色底 + 居中图标，避免 Capacitor 默认白底闪一下。
+     注意：这里必须引用位图（ic_launcher_foreground），不能引用 @mipmap/ic_launcher ——
+     API 26+ 那个是 adaptive-icon XML，塞进 <bitmap> 会让窗口背景解析失败、Activity 直接崩。 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/game_bg" />
+    <item android:gravity="center">
+        <bitmap android:gravity="center" android:src="@mipmap/ic_launcher_foreground" />
+    </item>
+</layer-list>

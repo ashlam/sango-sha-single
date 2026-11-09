@@ -1,0 +1,21 @@
+{
+  "name": "sango-sha",
+  "version": "1.0.0",
+  "description": "三国杀 单机版 —— 标准版 + 军争篇",
+  "private": true,
+  "scripts": {
+    "serve": "node tools/serve.js",
+    "sim": "node tools/sim.js 4 50",
+    "test": "node tools/skilltest.js && node tools/sim.js 4 20 && node tools/sim.js 8 20",
+    "android:add": "node tools/prepare-android.js",
+    "android:sync": "npx cap sync android",
+    "android:open": "npx cap open android",
+    "test:skills": "node tools/skilltest.js",
+    "test:ai": "node tools/failstat.js 8 && node tools/skfail.js 8"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^6.2.3",
+    "@capacitor/cli": "^6.2.3",
+    "@capacitor/core": "^6.2.3"
+  }
+}

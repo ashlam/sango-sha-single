@@ -1,0 +1,27 @@
+# 依赖与构建产物
+node_modules/
+# 由 tools/prepare-android.js 从源码生成
+www/
+# 出包产物（APK），本地保留即可
+dist/
+
+# 安卓原生工程里的机器相关 / 生成物
+android/app/build/
+android/.gradle/
+android/local.properties
+# 签名密钥：含私钥与密码，严禁提交到公开仓库
+android/sangosha-release.jks
+
+# 内部代理记忆（不进公开仓库）
+.workbuddy/
+
+# 测试 / 调试探针与截图产物
+tools/_*.js
+tools/*.png
+tools/*.bmp
+tools/*.bin
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,13 @@
+{
+  "appId": "com.sangosha.mobile",
+  "appName": "三国杀",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#0c0a08",
+    "webContentsDebuggingEnabled": false
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

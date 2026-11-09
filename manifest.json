@@ -1,0 +1,20 @@
+{
+  "name": "三国杀 · 单机版",
+  "short_name": "三国杀",
+  "description": "标准版 + 军争篇 单机三国杀",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#0c0a08",
+  "theme_color": "#14100d",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

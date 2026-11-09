@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#14100d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>三国杀 · 单机版</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="apple-touch-icon" href="icons/icon.svg">
+<link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ 开始界面 ============ -->
+  <section id="startScreen" class="screen">
+    <div class="start-bg"></div>
+    <div class="brand">
+      <div class="brand-seal">殺</div>
+      <h1>三国杀</h1>
+      <p class="brand-sub">标准版 · 军争篇</p>
+      <div class="brand-line"></div>
+    </div>
+
+    <div class="start-actions">
+      <label class="field">
+        <span>对局人数</span>
+        <select id="selCount">
+          <option value="4" selected>4 人（主 · 忠 · 反 · 内）</option>
+          <option value="5">5 人（主 · 忠 · 反 · 反 · 内）</option>
+          <option value="6">6 人（主 · 忠 · 反 ×3 · 内）</option>
+          <option value="8">8 人（主 · 忠 ×2 · 反 ×4 · 内）</option>
+        </select>
+      </label>
+      <button class="btn primary lg" id="btnStart">开 始 对 局</button>
+      <button class="btn ghost" id="btnRule">新 手 指 南</button>
+    </div>
+
+    <p class="start-tip">点按手牌选中 → 点按目标 → 使用<br><span class="start-tip2">长按手牌 / 武将卡可查看详细说明　·　点按行动横幅里的牌与名字也能看详情　·　右上角「册」查图鉴</span></p>
+  </section>
+
+  <!-- ============ 对局界面 ============ -->
+  <section id="gameScreen" class="screen hidden">
+
+    <header id="hud">
+      <div class="hud-left">
+        <span class="chip" id="hudTurn">第 1 回合</span>
+        <span class="chip" id="hudDeck">牌堆 0</span>
+      </div>
+      <div class="hud-right">
+        <span class="id-slot" id="hudIdentity"></span>
+        <button class="icon-btn" id="btnCodex" title="图鉴：卡牌 / 技能 / 规则">册</button>
+        <button class="icon-btn" id="btnLog" title="战报">报</button>
+        <button class="icon-btn" id="btnMenu" title="菜单">≡</button>
+      </div>
+    </header>
+
+    <main id="stage">
+      <div id="table">
+        <div id="centerZone">
+          <div id="turnName"></div>
+          <div id="processSlot"></div>
+          <div id="phaseTip"></div>
+        </div>
+        <div id="piles">
+          <div class="pile" id="pileDraw" data-inspect="pile:draw"><span class="pile-n">0</span><span class="pile-t">牌堆</span></div>
+          <div class="pile" id="pileDiscard" data-inspect="pile:discard"><span class="pile-n">0</span><span class="pile-t">弃牌</span></div>
+        </div>
+      </div>
+      <div id="seats"></div>
+      <div id="banner" class="hidden"></div>
+      <div id="floatText"></div>
+    </main>
+
+    <footer id="selfArea">
+      <div id="actionBar" class="hidden">
+        <div id="actionPromptWrap">
+          <div id="actionPrompt"></div>
+          <button class="mini-info" id="btnPromptInfo" title="查看说明">ⓘ</button>
+        </div>
+        <div class="act-btns">
+          <button class="btn sm" id="btnCancel">取消</button>
+          <button class="btn sm primary" id="btnConfirm">确定</button>
+        </div>
+      </div>
+
+      <div id="skillBar"></div>
+
+      <div id="selfRow">
+        <div id="selfIdentity" class="self-id"></div>
+        <div id="selfGeneral" class="gcard rowcard" data-inspect="general:0" data-tap="1"></div>
+        <div id="selfEquip" class="equip-row"></div>
+      </div>
+
+      <div id="handArea"></div>
+
+      <div id="selfJudge" class="judge-row"></div>
+    </footer>
+  </section>
+
+  <!-- 桌面表现层：指向线 / 飘字 / 濒死血雾（不吃事件） -->
+  <div id="fxLayer"></div>
+
+  <!-- ============ 战报 ============ -->
+  <aside id="logPanel" class="hidden">
+    <div class="log-head"><span>战 报</span><button id="btnCloseLog">×</button></div>
+    <div id="logList"></div>
+    <button id="logNew" class="hidden">↓ 有新消息</button>
+    <button id="logPending" class="hidden">
+      <i class="pc-dot"></i><span class="lp-txt">待你响应</span><span class="lp-go">处理 ›</span>
+    </button>
+    <button id="logResult" class="hidden">
+      <span class="lp-txt">对局已结束</span><span class="lp-go">看结算 ›</span>
+    </button>
+  </aside>
+
+  <!-- ============ 弹层 ============ -->
+  <div id="modal" class="hidden"><div id="modalBox"></div></div>
+  <!-- 弹窗收起后的悬浮胶囊 -->
+  <button id="promptChip" class="hidden">
+    <i class="pc-dot"></i><span class="pc-txt">待你响应</span><span class="pc-go">展开</span>
+  </button>
+  <!-- 结算收起后的悬浮胶囊 -->
+  <button id="resultChip" class="hidden">
+    <i class="rc-dot"></i><span class="rc-txt">对局已结束</span><span class="rc-go">看结算</span>
+  </button>
+  <div id="toast"></div>
+
+  <!-- 开局发牌动画 -->
+  <div id="dealLayer" class="hidden"></div>
+
+  <!-- ============ 信息抽屉（长按检视 / 图鉴） ============ -->
+  <div id="sheet" class="hidden">
+    <div id="sheetScrim"></div>
+    <div id="sheetPanel">
+      <div id="sheetGrab"></div>
+      <div id="sheetPending" class="sheet-pending hidden">你有待处理的操作 · 点此返回</div>
+      <div id="sheetHead"></div>
+      <div id="sheetBody"></div>
+    </div>
+  </div>
+
+  <!-- ============ 新手引导 ============ -->
+  <div id="coach" class="hidden"></div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/skills.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/inspect.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

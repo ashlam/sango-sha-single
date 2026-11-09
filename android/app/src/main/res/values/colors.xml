@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 国风暗金主题色，与 Web 端 :root 变量保持一致 -->
+    <color name="colorPrimary">#C8A95C</color>
+    <color name="colorPrimaryDark">#0C0A08</color>
+    <color name="colorAccent">#B23A2E</color>
+
+    <color name="game_bg">#0C0A08</color>
+    <color name="game_panel">#171310</color>
+</resources>
